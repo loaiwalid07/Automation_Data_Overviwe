@@ -51,13 +51,14 @@ def overviwe (df):
     
     count_0 = (df == 0).sum()
     
-    count_neg=(df < 0).sum()
+    #count_neg=(df < 0).sum()
     
     count_inf = np.isinf(df).sum()
     
     dff = pd.DataFrame(data = [count_uin,list(dict(count_0).values()),
-    list(dict(count_neg).values()),list(dict(count_inf).values())]
-    ,index=['Distinc','zeros','Negitives','Infinty'],
+    '''list(dict(count_neg).values()),'''list(dict(count_inf).values())]
+    ,index=['Distinc','zeros',#'Negitives',
+            'Infinty'],
     columns=df.columns
     )
     return dff.T
