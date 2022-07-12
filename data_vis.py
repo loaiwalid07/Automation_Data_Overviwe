@@ -40,7 +40,7 @@ def data_types (df):
 
 def plot_hist (df,col):
     fig, ax = plt.subplots()
-    ax.tick_params(axis='x', labelrotation = 45)
+    ax.tick_params(axis='x', labelrotation = 90)
     ax.hist(df[col],bins=50)
     return fig
 def overviwe (df):
