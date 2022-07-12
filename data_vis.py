@@ -2,7 +2,7 @@
 """
 Created on Mon Jul 11 06:02:26 2022
 
-@author: loain
+@author: loai nazeer
 """
 import numpy as np
 import pandas as pd
@@ -11,9 +11,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score,mean_absolute_error
 from sklearn.svm import SVC
-
-
-path = 'C:/Users/loain/OneDrive/Desktop/data_vis_proj/Stores.csv'
 
 def read_data(path):
     df = pd.read_csv(path)
