@@ -31,7 +31,7 @@ st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootst
 st.markdown("""
 <nav class="navbar fixed-top navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-    <img src="https://www.vhv.rs/dpng/d/13-139580_data-science-icon-png-transparent-png.png" width="60" height="50" class="d-inline-block align-top" alt="">
+    <img src="https://flyclipart.com/thumb2/data-databank-database-explore-search-view-icon-690902.png" width="60" height="50" class="d-inline-block align-top" alt="">
     Data Overveiw
   </a>
 </nav>
