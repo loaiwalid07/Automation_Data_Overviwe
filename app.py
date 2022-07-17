@@ -3,6 +3,7 @@ import time
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from traitlets import default
 import data_vis
 
 hide_menu ="""
@@ -62,6 +63,17 @@ set_bg_hack_url()
 
 st.title('Welcome to Our App for Data Overview')
 
+def card (header,value,title=''):
+    return f"""
+                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">{header}</div>
+                <div class="card-body">
+                    <h6 class="card-title">{title}</h6>
+                    <p  class="card-text">{value}</p>
+                </div>
+                </div>
+                """
+
 #upload the dataset and display it
 up_file = st.file_uploader('Please,Uploud Your Dataset')
 my_bar = st.progress(0)
@@ -84,19 +96,7 @@ if up_file != None:
     # Nulls Check
         #st.markdown('for Nulls Checking click on the bleow markdown')
         st.markdown('# Nulls Check')
-
-        st.write(f"""
-                <div class="card">
-                <div class="card-header">
-                    Featured
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">The count for Nulls in the data is</h5>
-                    <p class="card-text">{data_vis.check_nulls(df)}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-                </div>
-                """,unsafe_allow_html=True)
+        st.write(card("Nulls",data_vis.check_nulls(df),'count of nulls : '),unsafe_allow_html=True)
         #st.write('The count for Nulls in the data is : ',data_vis.check_nulls(df),unsafe_allow_html=True)
         st.markdown("___")
 
@@ -116,7 +116,8 @@ if up_file != None:
     
     #Deplacit check
         st.markdown('# Daplacit Check')
-        st.write("The count of daplicated values in the data is :",data_vis.check_duplicat(df))
+        st.write(card("Daplacit Check",data_vis.check_duplicat(df),"The count of daplicated values in the data is :"),unsafe_allow_html=True)
+        #st.write("The count of daplicated values in the data is :",data_vis.check_duplicat(df))
         st.markdown("___")
 
     #Plot corr data
