@@ -1,5 +1,3 @@
-from pickle import NONE
-from markdown import markdown
 import streamlit as st
 import time
 import pandas as pd
