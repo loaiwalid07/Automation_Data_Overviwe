@@ -18,7 +18,7 @@ header{
     visibility : hidden;
     content:'';
 }
-viewerBadge_link__1S137{
+.viewerBadge_link__1S137{
     visibility : hidden;
 }
 footer{
