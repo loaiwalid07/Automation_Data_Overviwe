@@ -18,21 +18,12 @@ header{
     visibility : hidden;
     content:'';
 }
-.viewerBadge_container__1QSob{
-     visibility : hidden;
-}
-.viewerBadge_link__1S137{
-    visibility : hidden;
-}
 footer{
-    visibility : hidden;
     content: 'Loai Nazeer';
-
+}
 .navbar-brand{
         display:inline;
         font-size: 30px;
-}
-
 }
 <style>  
 """
