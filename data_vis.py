@@ -17,7 +17,7 @@ def read_data(path):
     return df
 
 def check_nulls (df):
-    return df.isnull().values.any() , df.isnull().any().sum()
+    return df.isnull().sum()
 
 def check_duplicat(df):
     return df.duplicated().sum()
@@ -36,14 +36,16 @@ def data_des(df):
     return df.describe()
 
 def data_types (df):
-    return pd.DataFrame(data=dict(df.dtypes),index=['Type']).astype(str).T
+    return pd.DataFrame(data=dict(df.dtypes),index=['Type']).astype(str)
 
 def plot_hist (df,col):
     fig, ax = plt.subplots()
     ax.tick_params(axis='x', labelrotation = 90)
     ax.hist(df[col],bins=50)
     return fig
+
 def overviwe (df):
+    df = df._get_numeric_data()
     count_uin = []
 
     for i in range(0,len(df.columns)):
@@ -51,15 +53,22 @@ def overviwe (df):
     
     count_0 = (df == 0).sum()
     
-    #count_neg=(df < 0).sum()
+    count_neg=(df < 0).sum()
     
-    #count_inf = np.isinf(df).sum()
+    count_inf = np.isinf(df).sum()
     
     dff = pd.DataFrame(data = [count_uin,list(dict(count_0).values()),
-    #list(dict(count_neg).values()),list(dict(count_inf).values())
+    list(dict(count_neg).values()),list(dict(count_inf).values())
                               ]
-    ,index=['Distinc','zeros',#'Negitives','Infinty'
+    ,index=['Distinc','zeros','Negitives','Infinty'
            ],
     columns=df.columns
     )
-    return dff.T
+    return dff
+
+def over_all (df):
+    df = df._get_numeric_data()
+    df_des = data_des(df)
+    df_over = overviwe(df)
+    df_over = df_des.append(df_over)
+    return df_over
