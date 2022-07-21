@@ -3,8 +3,8 @@ import time
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from traitlets import default
 import data_vis
+import re
 
 hide_menu ="""
 <style>
@@ -18,20 +18,25 @@ header{
     visibility : hidden;
     content:'';
 }
+
 footer:after{
     content: 'Loai Nazeer';
- }
+
+.navbar-brand{
+        display:inline;
+        font-size: 30px;
+}
 <style>  
 """
 
 st.set_page_config(page_title='Data Overview',initial_sidebar_state="auto",layout='wide')
 
-#Set the Nivbar for the app
+#Set the Navbar for the app
 st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
 st.markdown("""
 <nav class="navbar fixed-top navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-    <img src="https://www.vhv.rs/dpng/d/13-139580_data-science-icon-png-transparent-png.png" width="60" height="50" class="d-inline-block align-top" alt="">
+    <img src="https://cdn-icons-png.flaticon.com/512/190/190759.png" width="60" height="60" class="d-inline-block align-center" " alt="">
     Data Overveiw
   </a>
 </nav>
@@ -51,7 +56,7 @@ def set_bg_hack_url():
          f"""
          <style>
          .stApp {{
-             background: url("https://i.gifer.com/4NB4.gif");
+             background: url("https://media0.giphy.com/media/xVn3ZmKrKIOLS/giphy.gif");
              background-size: cover    
          }}
          </style>
@@ -92,6 +97,15 @@ if up_file != None:
         df = pd.read_csv(up_file)
         st.write(df)
         st.markdown("___")
+
+        dfff = data_vis.over_all(df)
+        for i in  dfff.columns:
+            exp = st.expander(i,expanded = True )
+            exp.markdown("___")
+            c=0
+            for j in dfff[i]:
+                exp.markdown(dfff[i].index[c]+' | \t '+str(j))
+                c+=1
     
     # Nulls Check
         #st.markdown('for Nulls Checking click on the bleow markdown')
@@ -108,6 +122,7 @@ if up_file != None:
         st.markdown("___")
     
     with col2:
+    
     #Display the dataset overviwe
         st.markdown("___")
         st.markdown("# Overview of data")
