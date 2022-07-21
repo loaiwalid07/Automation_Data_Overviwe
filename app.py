@@ -18,6 +18,9 @@ header{
     visibility : hidden;
     content:'';
 }
+.viewerBadge_container__1QSob{
+     visibility : hidden;
+}
 .viewerBadge_link__1S137{
     visibility : hidden;
 }
