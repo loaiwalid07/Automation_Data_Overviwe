@@ -17,7 +17,7 @@ def read_data(path):
     return df
 
 def check_nulls (df):
-    return df.isnull().values.any() , df.isnull().any().sum()
+    return df.isnull().sum()
 
 def check_duplicat(df):
     return df.duplicated().sum()
