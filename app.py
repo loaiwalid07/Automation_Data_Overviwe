@@ -18,7 +18,9 @@ header{
     visibility : hidden;
     content:'';
 }
-
+viewerBadge_link__1S137{
+    visibility : hidden;
+}
 footer{
     visibility : hidden;
     content: 'Loai Nazeer';
