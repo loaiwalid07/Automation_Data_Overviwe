@@ -137,12 +137,4 @@ if up_file != None:
     cols = st.selectbox('Select Column to Plot the Histogram',df.columns)
     st.write(data_vis.plot_hist(df,cols))
     st.markdown("___")
-
-
-
     
-
-
-
-
- 
