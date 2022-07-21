@@ -38,11 +38,7 @@ st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootst
 st.markdown("""
 <nav class="navbar fixed-top navbar-dark bg-dark">
   <a class="navbar-brand" href="#">
-<<<<<<< HEAD
     <img src="https://cdn-icons-png.flaticon.com/512/190/190759.png" width="60" height="60" class="d-inline-block align-center" " alt="">
-=======
-    <img src="https://cdn-icons-png.flaticon.com/512/190/190759.png" width="60" height="60" class="d-inline-block align-center" alt="">
->>>>>>> 108b1e7cf749be730d527220b2be9e797dca3b90
     Data Overveiw
   </a>
 </nav>
