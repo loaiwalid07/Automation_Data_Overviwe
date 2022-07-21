@@ -19,7 +19,8 @@ header{
     content:'';
 }
 
-footer:after{
+footer{
+    visibility : hidden;
     content: 'Loai Nazeer';
 
 .navbar-brand{
