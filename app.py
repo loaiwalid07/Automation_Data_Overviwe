@@ -139,7 +139,7 @@ if up_file != None:
     st.markdown("___")
 
 # Check list
-    st.sidebar.header("Select the parts of code you want to dispaly")
+    st.sidebar.header("Select the parts of code you want to display")
     ch_1 = st.sidebar.checkbox('Code For Types of data')
     ch_2 = st.sidebar.checkbox('Code For Data overveiw')
     ch_3 = st.sidebar.checkbox('Code For Nulls Check')
