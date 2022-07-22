@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import data_vis
 import re
+import plotly.express as px
+
 
 hide_menu ="""
 <style>
@@ -70,12 +72,11 @@ set_bg_hack_url()
 
 st.title('Welcome to Our App for Data Overveiw')
 
-def card (header,value,title=''):
+def card (header,value):
     return f"""
                 <div class="card text-white bg-dark mb-3" style="max-width: 38rem;">
                 <div class="card-header">{header}</div>
                 <div class="card-body">
-                    <h6 class="card-title">{title}</h6>
                     <p  class="card-text">{value}</p>
                 </div>
                 </div>
@@ -113,13 +114,13 @@ if up_file != None:
 # Nulls Check
     #st.markdown('for Nulls Checking click on the bleow markdown')
     st.markdown('# Nulls Check')
-    st.write(card("Nulls",str(re.sub(r'(      )',"  ->  ",str(re.sub(r'(\n)'," <br> ",str(data_vis.check_nulls(df)))))),'count of nulls : '),unsafe_allow_html=True)
+    st.write(card("Nulls",str(re.sub(r'(      )',"  ->  ",str(re.sub(r'(\n)'," <br> ",str(data_vis.check_nulls(df))))))),unsafe_allow_html=True)
     #st.write('The count for Nulls in the data is : ',data_vis.check_nulls(df),unsafe_allow_html=True)
     st.markdown("___")
 
 #Deplacit check
     st.markdown('# Daplacit Check')
-    st.write(card("Daplacit Check",data_vis.check_duplicat(df),"The count of daplicated values in the data is :"),unsafe_allow_html=True)
+    st.write(card("Daplacit Check",data_vis.check_duplicat(df)),unsafe_allow_html=True)
     #st.write("The count of daplicated values in the data is :",data_vis.check_duplicat(df))
     st.markdown("___")
 
@@ -140,7 +141,6 @@ if up_file != None:
     cols = st.selectbox('Select Column to Plot the Histogram',df.columns)
     st.write(data_vis.plot_hist(df,cols))
     st.markdown("___")
-
 
 
     

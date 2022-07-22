@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score,mean_absolute_error
 from sklearn.svm import SVC
+import plotly.express as px
 
 def read_data(path):
     df = pd.read_csv(path)
@@ -27,9 +28,10 @@ def corr_data(df):
     return df_coor.style.background_gradient(cmap='coolwarm')
 
 def plotting (x,y):
-    fig, ax = plt.subplots()
-    ax.tick_params(axis='x', labelrotation = 45)
-    ax.scatter(x,y)
+    fig = px.scatter(x=x,y=y)
+    fig.update_layout(plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor= 'rgba(0, 0, 0, 0)')
+    fig.update_xaxes(showgrid=False)
+    fig.update_yaxes(showgrid=False)
     return fig
 
 def data_des(df):
@@ -39,10 +41,12 @@ def data_types (df):
     return pd.DataFrame(data=dict(df.dtypes),index=['Type']).astype(str)
 
 def plot_hist (df,col):
-    fig, ax = plt.subplots()
-    ax.tick_params(axis='x', labelrotation = 90)
-    ax.hist(df[col],bins=50)
-    return fig
+    fig_1 = px.histogram(df, x = col)
+    #fig_1.update_layout(bargap=0.5)
+    fig_1.update_layout(plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor= 'rgba(0, 0, 0, 0)')
+    fig_1.update_xaxes(showgrid=False)
+    fig_1.update_yaxes(showgrid=False)
+    return fig_1
 
 def overviwe (df):
     df = df._get_numeric_data()
