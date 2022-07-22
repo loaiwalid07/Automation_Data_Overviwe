@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import data_vis
 import re
 import plotly.express as px
-
+import webbrowser
 
 hide_menu ="""
 <style>
@@ -84,27 +84,23 @@ def card (header,value):
 
 #upload the dataset and display it
 up_file = st.file_uploader('Please,Uploud Your Dataset')
-my_bar = st.progress(0)
-
-for percent_complete in range(100):
-    time.sleep(0.01)
-    my_bar.progress(percent_complete + 1)
-
 if up_file != None:
     
 # Read the dataset
-    st.markdown("___")
     df = pd.read_csv(up_file)
     st.write(df)
     st.markdown("___")
 
-
-#Display the dataset columns type
+# Display the dataset columns type
     st.markdown("# Types of data")
     st.write(data_vis.data_types(df))
     st.markdown("___")
 
-#Data overveiw
+#print the cat columns
+    st.markdown(f"This columns are categorical data : {str(set(df.columns)-set(df._get_numeric_data().columns))}",unsafe_allow_html =  True)
+    st.markdown("___")
+
+# Data overveiw
     st.markdown("# Data Overveiw")
     dfff = data_vis.over_all(df)
     for i in dfff.columns:
@@ -118,27 +114,122 @@ if up_file != None:
     #st.write('The count for Nulls in the data is : ',data_vis.check_nulls(df),unsafe_allow_html=True)
     st.markdown("___")
 
-#Deplacit check
+# Deplacit check
     st.markdown('# Daplacit Check')
     st.write(card("Daplacit Check",data_vis.check_duplicat(df)),unsafe_allow_html=True)
     #st.write("The count of daplicated values in the data is :",data_vis.check_duplicat(df))
     st.markdown("___")
 
-#Plot corr data
+# Plot corr data
     st.markdown('# Plot Corrolitaion')
     st.write(data_vis.corr_data(df))
     st.markdown("___")
 
-#Plot the interacations between columns
+# Plot the interacations between columns
     st.markdown("# Plot the Interactions")
     col_1 = st.selectbox('Select Frist Column',df.columns)
     col_2 = st.selectbox('Select Second Column',df.columns)
     st.write(data_vis.plotting(df[col_1],df[col_2]))
     st.markdown("___")
 
-#Display the histogram
+# Display the histogram
     st.markdown("# Plot Histogram")
     cols = st.selectbox('Select Column to Plot the Histogram',df.columns)
     st.write(data_vis.plot_hist(df,cols))
     st.markdown("___")
+
+# Check list
+    st.sidebar.header("Select the parts of code you want to dispaly")
+    ch_1 = st.sidebar.checkbox('Code For Types of data')
+    ch_2 = st.sidebar.checkbox('Code For Data overveiw')
+    ch_3 = st.sidebar.checkbox('Code For Nulls Check')
+    ch_4 = st.sidebar.checkbox('Code For Daplacit Check')
+    ch_5 = st.sidebar.checkbox('Code For Plot Corrolitaion')
+    ch_6 = st.sidebar.checkbox('Code For Plot the interacations between columns')
+    ch_7 = st.sidebar.checkbox('Code For histogram')
+
+    st.sidebar.markdown('___')
+    st.sidebar.markdown('*You can find the parts of code in the bottom of th page*')    
+    code_1 = '''
+    def data_types (df):
+        return pd.DataFrame(data=dict(df.dtypes),index=['Type']).astype(str)
+    '''
+    code_2 = '''
     
+    def data_des(df):
+        return df.describe()
+
+    def overviwe (df):
+        df = df._get_numeric_data()
+        count_uin = []
+
+        for i in range(0,len(df.columns)):
+            count_uin.append(len(df.iloc[:,i].unique()))
+        
+        count_0 = (df == 0).sum()
+        
+        count_neg=(df < 0).sum()
+        
+        count_inf = np.isinf(df).sum()
+        
+        dff = pd.DataFrame(data = [count_uin,list(dict(count_0).values()),
+        list(dict(count_neg).values()),list(dict(count_inf).values())
+                                ]
+        ,index=['Distinc','zeros','Negitives','Infinty'
+            ],
+        columns=df.columns
+        )
+        return dff
+
+    def over_all (df):
+        df = df._get_numeric_data()
+        df_des = data_des(df)
+        df_over = overviwe(df)
+        df_over = df_des.append(df_over)
+        return df_over
+    '''
+    code_3 = '''
+    def check_nulls (df):
+        return df.isnull().sum()
+    '''
+    code_4 = '''
+    def check_duplicat(df):
+        return df.duplicated().sum()
+    '''
+    code_5 = '''
+    def corr_data(df):
+        df_coor = df.corr()
+        return df_coor.style.background_gradient(cmap='coolwarm')
+    '''
+    code_6 = '''
+    def plotting (x,y):
+        fig = px.scatter(x=x,y=y)
+        fig.update_layout(plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor= 'rgba(0, 0, 0, 0)')
+        fig.update_xaxes(showgrid=False)
+        fig.update_yaxes(showgrid=False)
+        return fig
+    '''
+    code_7 = '''
+    def plot_hist (df,col):
+        fig_1 = px.histogram(df, x = col)
+        #fig_1.update_layout(bargap=0.5)
+        fig_1.update_layout(plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor= 'rgba(0, 0, 0, 0)')
+        fig_1.update_xaxes(showgrid=False)
+        fig_1.update_yaxes(showgrid=False)
+        return fig_1
+    '''
+
+    if ch_1 :
+        st.code(code_1)
+    if ch_2:
+        st.code(code_2)
+    if ch_3:
+        st.code(code_3)
+    if ch_4:
+        st.code(code_4)
+    if ch_5:
+        st.code(code_5)
+    if ch_6:
+        st.code(code_6)
+    if ch_7:
+        st.code(code_7)
